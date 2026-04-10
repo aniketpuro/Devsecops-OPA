@@ -5,4 +5,4 @@ metadata:
   namespace: default
 data:
   CIRCLE_COLOR: pink
-  TRIANGLE_COLOR: "red"  # Yeh rule break kar raha hai!
+  TRIANGLE_COLOR: "red"  # Yeh rule break kar raha hai.
