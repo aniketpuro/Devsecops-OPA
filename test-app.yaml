@@ -13,7 +13,7 @@ spec:
         app: web
     spec:
       containers:
-      - name: nginx-container
-        image: nginx:alpine
+      - name: solar-system-container
+        image: aniketpuro/solar-system:latest
         ports:
         - containerPort: 80

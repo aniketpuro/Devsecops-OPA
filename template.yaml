@@ -1,19 +1,19 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: k8sblockwhitecolor
+  name: k8sblockprivileged
 spec:
   crd:
     spec:
       names:
-        kind: K8sBlockWhiteColor
+        kind: K8sBlockPrivileged
   targets:
     - target: admission.k8s.gatekeeper.sh
       rego: |
-        package k8sblockwhitecolor
+        package k8sblockprivileged
 
         violation[{"msg": msg}] {
-          input.review.object.kind == "ConfigMap"
-          input.review.object.data.TRIANGLE_COLOR != "red"
-          msg := "OPA Policy Violation: TRIANGLE ke liye white color allowed nahi hai. Custom DevSecOps rule triggered!"
+          container := input.review.object.spec.template.spec.containers[_]
+          container.securityContext.privileged == true
+          msg := sprintf("OPA Bouncer Alert: Container '%v' is trying to run in privileged mode. Access Denied!", [container.name])
         }
